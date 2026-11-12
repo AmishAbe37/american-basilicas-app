@@ -53,6 +53,15 @@
       "typedRoutes": true
     },
     "owner": "americanbasilicasorg",
-    "description": "A pilgrim's map of the 94 Catholic minor basilicas of the United States."
+    "description": "A pilgrim's map of the 94 Catholic minor basilicas of the United States.",
+    "runtimeVersion": "exposdk:54.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/94f5432c-2f5c-47ca-9268-81e9c1ad65a4"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "94f5432c-2f5c-47ca-9268-81e9c1ad65a4"
+      }
+    }
   }
 }
