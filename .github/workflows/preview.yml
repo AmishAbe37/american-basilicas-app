@@ -1,0 +1,41 @@
+# Publishes each draft pull request as a preview that opens in Expo Go (free; no store accounts needed).
+# Needs the repository secret EXPO_TOKEN (an Expo robot token for the americanbasilicasorg organization).
+name: Preview in Expo Go
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+concurrency:
+  group: preview-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Set up EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Type check
+        run: npx tsc --noEmit
+      - name: Link the Expo project
+        # Finds (or creates once) the "american-basilicas" project under the owner in app.json
+        run: eas init --non-interactive --force
+      - name: Publish preview
+        uses: expo/expo-github-action/preview@v8
+        with:
+          qr-target: expo-go
+          command: eas update --auto --non-interactive --branch ${{ github.head_ref || github.ref_name }}
