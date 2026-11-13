@@ -5,6 +5,8 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Lacquer } from "../src/components/ui";
+import { AuthProvider } from "../src/lib/auth";
+import { VisitsProvider } from "../src/lib/visits";
 import { C, F } from "../src/theme";
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
@@ -15,6 +17,7 @@ export default function Root() {
   if (!loaded) return null;
   return (
     <GestureHandlerRootView style={{ flex: 1, backgroundColor: C.paper }}>
+      <AuthProvider><VisitsProvider>
       <StatusBar style="light" />
       <Stack
         screenOptions={{
@@ -28,7 +31,9 @@ export default function Root() {
       >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="basilica/[id]" options={{ title: "", headerBackTitle: "Back" }} />
+        <Stack.Screen name="signin" options={{ title: "Sign in", presentation: "modal" }} />
       </Stack>
+      </VisitsProvider></AuthProvider>
     </GestureHandlerRootView>
   );
 }
