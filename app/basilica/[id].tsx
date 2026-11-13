@@ -1,6 +1,7 @@
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { Image, Pressable, ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
-import { Ombrellino, Paper, T } from "../../src/components/ui";
+import { Image, ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
+import { Card, Cosmati, EnamelButton, GiltFrame, Kicker, Lacquer, Ombrellino, Paper, PorcelainButton, T, Valance, letterpress } from "../../src/components/ui";
 import { byId } from "../../src/data/basilicas";
 import { PHOTO_RATIO, PHOTOS } from "../../src/data/photos";
 import { openDirections, openWeb } from "../../src/lib/open";
@@ -13,55 +14,64 @@ export default function BasilicaScreen() {
   if (!b) return <Paper><T style={{ padding: 20 }}>This basilica isn&rsquo;t in the list.</T></Paper>;
   const photo = PHOTOS[b.id];
   const ratio = PHOTO_RATIO[b.id] || 0.66;
-  const imgW = Math.min(width, 700) - 32;
+  const colW = Math.min(width, 640) - 28;          // card content width
+  const imgW = colW - 2 * 7 - 2;                   // inside the gilt frame
   const c = b.credit;
   return (
     <Paper>
-      <Stack.Screen options={{ title: b.city }} />
-      <ScrollView contentContainerStyle={{ padding: 16, paddingBottom: 40, alignItems: "center" }}>
-        <View style={{ width: imgW }}>
+      <Stack.Screen options={{ title: b.city, headerBackground: () => <Lacquer style={{ flex: 1 }} /> }} />
+      <Valance style={{ marginBottom: -10 }} />
+      <ScrollView contentContainerStyle={{ paddingHorizontal: 14, paddingTop: 26, paddingBottom: 40, alignItems: "center" }}>
+        <View style={{ width: colW }}>
           {photo ? (
-            <View style={s.frame}>
-              <Image source={photo} style={{ width: imgW - 12, height: (imgW - 12) * ratio }} accessibilityLabel={`Photo of ${b.name}`} />
-            </View>
+            <GiltFrame>
+              <Image source={photo} style={{ width: imgW, height: imgW * ratio }} accessibilityLabel={`Photo of ${b.name}`} />
+            </GiltFrame>
           ) : null}
           <T style={s.credit}>
-            {c ? `Photo: ${c.author}${c.license ? " · " + c.license : ""}${c.page ? " · Wikimedia Commons" : ""}` : "Photo: Wikimedia Commons"}
+            {c ? `Photo: ${c.author}` : "Photo: Wikimedia Commons"}
+            {c?.license ? " · " : ""}
+            {c?.license ? (c.licenseUrl ? <T style={[s.credit, s.link]} onPress={() => openWeb(c.licenseUrl!)}>{c.license}</T> : c.license) : null}
+            {c?.page ? <>{" · "}<T style={[s.credit, s.link]} onPress={() => openWeb(c.page!)}>Wikimedia Commons ↗</T></> : null}
             {b.photoNote ? ` · ${b.photoNote}` : ""}
-            {c?.page ? <T style={[s.credit, s.link]} onPress={() => openWeb(c.page!)}>  View source</T> : null}
           </T>
 
           <View style={s.titleRow}>
-            <Ombrellino size={34} />
+            <View style={{ paddingTop: 3 }}><Ombrellino size={34} /></View>
             <View style={{ flex: 1 }}>
               <T w="bold" style={s.name}>{b.name}</T>
-              <T style={s.place}>{b.city}, {b.state}{b.year ? ` · Minor basilica since ${b.year}` : ""}</T>
+              <T style={s.place}>{b.city}, {b.state}{b.year ? `  ·  Basilica since ${b.year}` : ""}</T>
             </View>
           </View>
 
           <View style={s.facts}>
             {b.facts.map((f, i) => (
               <View key={i} style={s.fact}>
-                <T w="black" style={s.bullet}>{i + 1}</T>
+                <T w="black" style={s.num}>{i + 1}.</T>
                 <T style={s.factText}>{f}</T>
               </View>
             ))}
           </View>
 
-          <Pressable onPress={() => openDirections(b)} style={({ pressed }) => [s.btn, pressed && { opacity: 0.8 }]} accessibilityRole="button">
-            <T w="bold" style={{ color: "#fff", fontSize: 17 }}>Directions</T>
-          </Pressable>
-          <View style={{ flexDirection: "row", gap: 10, marginTop: 10 }}>
-            {b.wiki ? (
-              <Pressable onPress={() => openWeb(b.wiki!)} style={({ pressed }) => [s.btn2, pressed && { opacity: 0.8 }]} accessibilityRole="link">
-                <T w="bold" style={s.btn2Text}>Wikipedia</T>
-              </Pressable>
-            ) : null}
-            <Pressable onPress={() => openWeb(`https://americanbasilicas.org/basilica.html?b=${encodeURIComponent(b.id)}`)}
-              style={({ pressed }) => [s.btn2, pressed && { opacity: 0.8 }]} accessibilityRole="link">
-              <T w="bold" style={s.btn2Text}>Members&rsquo; photos</T>
-            </Pressable>
+          <View style={s.links}>
+            {b.wiki ? <T w="semibold" style={s.alink} onPress={() => openWeb(b.wiki!)}>Wikipedia article ↗</T> : null}
+            {b.commons ? <T w="semibold" style={s.alink} onPress={() => openWeb(b.commons!)}>More photos on Wikimedia Commons ↗</T> : null}
           </View>
+
+          <Cosmati style={{ marginTop: 18, marginBottom: 18 }} />
+
+          <EnamelButton label="Directions" onPress={() => openDirections(b)} icon={<Ionicons name="navigate" size={17} color="#fff" />} />
+
+          <Card style={{ marginTop: 22 }}>
+            <Kicker>Been here?</Kicker>
+            <T style={s.cardText}>
+              Checking off your visit, with the date, a private note and your photos, comes with sign-in in the next update.
+              Members&rsquo; photos, reviews and questions for this basilica are on the website for now.
+            </T>
+            <View style={{ flexDirection: "row", paddingBottom: 10 }}>
+              <PorcelainButton label="Members’ page ↗" onPress={() => openWeb(`https://americanbasilicas.org/basilica.html?b=${encodeURIComponent(b.id)}`)} />
+            </View>
+          </Card>
         </View>
       </ScrollView>
     </Paper>
@@ -69,17 +79,16 @@ export default function BasilicaScreen() {
 }
 
 const s = StyleSheet.create({
-  frame: { padding: 5, backgroundColor: "#c99a2e", borderWidth: 1, borderColor: "#7d5a0e", borderRadius: 2, shadowColor: "#000", shadowOpacity: 0.25, shadowRadius: 4, shadowOffset: { width: 0, height: 2 }, elevation: 3 },
-  credit: { fontSize: 12, color: C.muted, marginTop: 6 },
-  link: { color: C.red, textDecorationLine: "underline" },
-  titleRow: { flexDirection: "row", gap: 12, alignItems: "flex-start", marginTop: 18 },
-  name: { fontSize: 24, lineHeight: 28 },
-  place: { fontSize: 15, color: C.muted, marginTop: 4 },
-  facts: { marginTop: 18, gap: 12, borderTopWidth: 1, borderTopColor: C.rule, paddingTop: 16 },
-  fact: { flexDirection: "row", gap: 10 },
-  bullet: { color: C.red, fontSize: 16, width: 16 },
-  factText: { flex: 1, fontSize: 16, lineHeight: 23 },
-  btn: { marginTop: 24, backgroundColor: C.red, borderRadius: 8, paddingVertical: 13, alignItems: "center", borderWidth: 1, borderColor: C.gold },
-  btn2: { flex: 1, borderWidth: 1.5, borderColor: C.red, borderRadius: 8, paddingVertical: 11, alignItems: "center", backgroundColor: "#fffdf8" },
-  btn2Text: { color: C.red, fontSize: 16 },
+  credit: { fontSize: 12, lineHeight: 17, color: C.muted, marginTop: 8, textAlign: "center" },
+  link: { marginTop: 0, color: "#7a1f1f", textDecorationLine: "underline" },
+  titleRow: { flexDirection: "row", gap: 10, alignItems: "flex-start", marginTop: 18 },
+  name: { fontSize: 24, lineHeight: 28, color: "#241d12", ...letterpress },
+  place: { fontSize: 14.5, color: C.muted, marginTop: 4 },
+  facts: { marginTop: 16, gap: 10 },
+  fact: { flexDirection: "row", gap: 6 },
+  num: { color: C.red, fontSize: 16, lineHeight: 24, width: 20 },
+  factText: { flex: 1, fontSize: 16, lineHeight: 24, color: "#2a2318" },
+  links: { marginTop: 14, paddingTop: 12, gap: 10, borderTopWidth: 1, borderTopColor: "#d9cba6" },
+  alink: { color: "#7a1f1f", fontSize: 15 },
+  cardText: { fontSize: 14.5, lineHeight: 21, color: "#4f4636", marginTop: 6, marginBottom: 12 },
 });

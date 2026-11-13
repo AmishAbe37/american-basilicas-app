@@ -35,7 +35,7 @@ const basilicas = MARKERS.map((m) => {
     id: m.ph, name: m.n, city: m.c, state: m.s, lat: m.lat, lng: m.lng,
     x: p ? r1(p[0] + Math.cos(ang) * rad) : null, y: p ? r1(p[1] + Math.sin(ang) * rad) : null,
     year: m.yr || null, facts: [m.f1, m.f2, m.f3].filter(Boolean),
-    wiki: m.wu || null, photoNote: m.pn || null,
+    wiki: m.wu || null, commons: m.iu || null, photoNote: m.pn || null,
     credit: c ? { author: c.author, license: c.license, licenseUrl: c.license_url || null, page: c.page || null } : null,
   };
 });

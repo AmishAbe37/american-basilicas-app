@@ -3,7 +3,7 @@ import raw from "../../assets/data/basilicas.json";
 export type Credit = { author: string; license: string; licenseUrl: string | null; page: string | null };
 export type Basilica = {
   id: string; name: string; city: string; state: string; lat: number; lng: number;
-  x: number; y: number; year: number | null; facts: string[]; wiki: string | null;
+  x: number; y: number; year: number | null; facts: string[]; wiki: string | null; commons: string | null;
   photoNote: string | null; credit: Credit | null;
 };
 

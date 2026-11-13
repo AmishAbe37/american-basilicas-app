@@ -4,6 +4,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Lacquer } from "../src/components/ui";
 import { C, F } from "../src/theme";
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
@@ -18,6 +19,8 @@ export default function Root() {
       <Stack
         screenOptions={{
           headerStyle: { backgroundColor: C.ink },
+          headerBackground: () => <Lacquer style={{ flex: 1 }} />,
+          headerShadowVisible: false,
           headerTintColor: C.gold,
           headerTitleStyle: { fontFamily: F.bold, color: "#fff" },
           contentStyle: { backgroundColor: C.paper },

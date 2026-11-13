@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ActivityIndicator, FlatList, Keyboard, Pressable, StyleSheet, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BasilicaRow from "../../src/components/BasilicaRow";
-import { Band, Paper, T, Valance } from "../../src/components/ui";
+import { Band, Card, EnamelButton, Kicker, Paper, T, Valance } from "../../src/components/ui";
 import { fmtMiles, nearest, zipToLatLng } from "../../src/lib/geo";
 import { C, F } from "../../src/theme";
 
@@ -38,13 +38,11 @@ export default function NearScreen() {
 
   return (
     <SafeAreaView edges={["top"]} style={{ flex: 1, backgroundColor: C.ink }}>
-      <Band title="Near you" />
+      <Band kicker="Plan a pilgrimage" title="Near" thin="you" />
       <Valance style={{ marginBottom: -9 }} />
       <Paper>
         <View style={s.panel}>
-          <Pressable onPress={useLocation} style={({ pressed }) => [s.btn, pressed && { opacity: 0.8 }]} accessibilityRole="button">
-            {busy ? <ActivityIndicator color={C.gold} /> : <T w="bold" style={s.btnText}>Use my location</T>}
-          </Pressable>
+          {busy ? <ActivityIndicator color={C.red} style={{ paddingVertical: 14 }} /> : <EnamelButton label="Use my location" onPress={useLocation} />}
           <View style={s.zipRow}>
             <TextInput value={zip} onChangeText={setZip} placeholder="or ZIP code" placeholderTextColor={C.muted}
               keyboardType="number-pad" maxLength={5} style={s.zip} onSubmitEditing={useZip} returnKeyType="search" />
@@ -55,16 +53,21 @@ export default function NearScreen() {
           <T style={s.note}>Your location and ZIP code stay on this phone. They aren&rsquo;t sent or saved anywhere.</T>
           {msg ? <T style={[s.note, { color: C.red }]}>{msg}</T> : null}
         </View>
-        {from ? <T w="bold" style={s.heading}>Closest to {from.label}</T> : null}
-        <FlatList data={list} keyExtractor={(r) => r.b.id} renderItem={({ item }) => <BasilicaRow b={item.b} right={fmtMiles(item.mi)} />}
-          keyboardShouldPersistTaps="handled" />
+        <FlatList data={list.length ? [0] : []} keyExtractor={() => "list"} keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{ paddingHorizontal: 14, paddingBottom: 30 }}
+          renderItem={() => (
+            <Card>
+              <Kicker style={{ paddingBottom: 6, borderBottomWidth: 1.5, borderBottomColor: C.rule }}>Closest to {from?.label}</Kicker>
+              {list.map((r, i) => <BasilicaRow key={r.b.id} b={r.b} right={fmtMiles(r.mi)} last={i === list.length - 1} />)}
+            </Card>
+          )} />
       </Paper>
     </SafeAreaView>
   );
 }
 
 const s = StyleSheet.create({
-  panel: { padding: 16, paddingTop: 20, gap: 10 },
+  panel: { padding: 14, paddingTop: 24, gap: 12 },
   btn: { backgroundColor: C.red, borderRadius: 8, paddingVertical: 13, alignItems: "center", borderWidth: 1, borderColor: C.gold },
   btnText: { color: "#fff", fontSize: 17 },
   zipRow: { flexDirection: "row", gap: 8 },
