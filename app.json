@@ -47,6 +47,15 @@
         {
           "locationWhenInUsePermission": "Your location is used on this phone to list the basilicas nearest you. It isn't sent or saved."
         }
+      ],
+      "@react-native-community/datetimepicker",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Choose photos of a basilica to add to your visit. Location data is removed before upload.",
+          "cameraPermission": "Take photos at a basilica for your visit. Location data is removed before upload.",
+          "microphonePermission": false
+        }
       ]
     ],
     "experiments": {

@@ -107,7 +107,7 @@ export default function ZoomMap({ onOpen, visited }: Props) {
               {level >= 2 && L.cities.map((d, i) => <City key={"c" + i} k={k} d={d} x={px(d.x)} y={py(d.y)} />)}
               {markers.map((b) => (
                 <Marker key={b.id} k={k} b={b} x={px(b.x)} y={py(b.y)} onOpen={onOpen}
-                  showName={level >= 3} visited={visited?.has(b.id)} />
+                  showName={level >= 3} visited={visited ? visited.has(b.id) : undefined} />
               ))}
             </Animated.View>
           </View>
@@ -159,7 +159,7 @@ const Marker = memo(function Marker({ k, b, x, y, onOpen, showName, visited }:
   return (
     <Animated.View style={[{ position: "absolute", left: x - MK_W / 2, top: y - MK_H, width: MK_W, height: MK_H, overflow: "visible" }, a]}>
       <Pressable onPress={() => onOpen(b)} hitSlop={8} accessibilityRole="button" accessibilityLabel={`${b.name}, ${b.city}`}>
-        <Image source={OMB} style={{ width: MK_W, height: MK_H, opacity: visited === false ? 1 : 1 }} />
+        <Image source={OMB} style={{ width: MK_W, height: MK_H, opacity: visited === false ? 0.38 : 1 }} />
       </Pressable>
       {showName && (
         <View pointerEvents="none" style={s.bnameBox}>

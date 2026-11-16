@@ -1,7 +1,8 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { Image, ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
-import { Card, Cosmati, EnamelButton, GiltFrame, Kicker, Lacquer, Ombrellino, Paper, PorcelainButton, T, Valance, letterpress } from "../../src/components/ui";
+import { Cosmati, EnamelButton, GiltFrame, Lacquer, Ombrellino, Paper, T, Valance, letterpress } from "../../src/components/ui";
+import VisitPanel from "../../src/components/VisitPanel";
 import { byId } from "../../src/data/basilicas";
 import { PHOTO_RATIO, PHOTOS } from "../../src/data/photos";
 import { openDirections, openWeb } from "../../src/lib/open";
@@ -62,16 +63,7 @@ export default function BasilicaScreen() {
 
           <EnamelButton label="Directions" onPress={() => openDirections(b)} icon={<Ionicons name="navigate" size={17} color="#fff" />} />
 
-          <Card style={{ marginTop: 22 }}>
-            <Kicker>Been here?</Kicker>
-            <T style={s.cardText}>
-              Checking off your visit, with the date, a private note and your photos, comes with sign-in in the next update.
-              Members&rsquo; photos, reviews and questions for this basilica are on the website for now.
-            </T>
-            <View style={{ flexDirection: "row", paddingBottom: 10 }}>
-              <PorcelainButton label="Members’ page ↗" onPress={() => openWeb(`https://americanbasilicas.org/basilica.html?b=${encodeURIComponent(b.id)}`)} />
-            </View>
-          </Card>
+          <VisitPanel b={b} />
         </View>
       </ScrollView>
     </Paper>
