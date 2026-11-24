@@ -11,6 +11,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "org.americanbasilicas.app",
+      "usesAppleSignIn": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Your location is used on this phone to list the basilicas nearest you. It isn't sent or saved."
       }
@@ -49,6 +50,7 @@
         }
       ],
       "@react-native-community/datetimepicker",
+      "expo-apple-authentication",
       [
         "expo-image-picker",
         {
