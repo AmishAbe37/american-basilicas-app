@@ -4,6 +4,7 @@ import { Image, ScrollView, StyleSheet, useWindowDimensions, View } from "react-
 import { Cosmati, EnamelButton, GiltFrame, Lacquer, Ombrellino, Paper, T, Valance, letterpress } from "../../src/components/ui";
 import VisitPanel from "../../src/components/VisitPanel";
 import { BasilicaMembers } from "../../src/components/gallery/GalleryBasilica";
+import PlanVisit from "../../src/components/reminders/PlanVisit";
 import { byId } from "../../src/data/basilicas";
 import { PHOTO_RATIO, PHOTOS } from "../../src/data/photos";
 import { openDirections, openWeb } from "../../src/lib/open";
@@ -66,6 +67,7 @@ export default function BasilicaScreen() {
 
           <VisitPanel b={b} />
           <BasilicaMembers b={b} />
+          <PlanVisit b={b} />
         </View>
       </ScrollView>
     </Paper>

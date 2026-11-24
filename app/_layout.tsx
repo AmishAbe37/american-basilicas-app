@@ -7,6 +7,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Lacquer } from "../src/components/ui";
 import WelcomeNotice from "../src/components/WelcomeNotice";
 import { AuthProvider } from "../src/lib/auth";
+import { RemindersProvider } from "../src/lib/reminders";
 import { VisitsProvider } from "../src/lib/visits";
 import { C, F } from "../src/theme";
 
@@ -18,7 +19,7 @@ export default function Root() {
   if (!loaded) return null;
   return (
     <GestureHandlerRootView style={{ flex: 1, backgroundColor: C.paper }}>
-      <AuthProvider><VisitsProvider>
+      <AuthProvider><VisitsProvider><RemindersProvider>
       <StatusBar style="light" />
       <Stack
         screenOptions={{
@@ -38,7 +39,7 @@ export default function Root() {
         <Stack.Screen name="account/delete" options={{ title: "Delete my account", headerBackTitle: "Back" }} />
       </Stack>
       <WelcomeNotice />
-      </VisitsProvider></AuthProvider>
+      </RemindersProvider></VisitsProvider></AuthProvider>
     </GestureHandlerRootView>
   );
 }
