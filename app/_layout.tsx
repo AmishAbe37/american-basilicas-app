@@ -5,6 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Lacquer } from "../src/components/ui";
+import WelcomeNotice from "../src/components/WelcomeNotice";
 import { AuthProvider } from "../src/lib/auth";
 import { VisitsProvider } from "../src/lib/visits";
 import { C, F } from "../src/theme";
@@ -32,7 +33,11 @@ export default function Root() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="basilica/[id]" options={{ title: "", headerBackTitle: "Back" }} />
         <Stack.Screen name="signin" options={{ title: "Sign in", presentation: "modal" }} />
+        <Stack.Screen name="account/orders" options={{ title: "Orders", headerBackTitle: "Back" }} />
+        <Stack.Screen name="account/membership" options={{ title: "Gallery membership", headerBackTitle: "Back" }} />
+        <Stack.Screen name="account/delete" options={{ title: "Delete my account", headerBackTitle: "Back" }} />
       </Stack>
+      <WelcomeNotice />
       </VisitsProvider></AuthProvider>
     </GestureHandlerRootView>
   );
