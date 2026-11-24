@@ -56,6 +56,12 @@
           "cameraPermission": "Take photos at a basilica for your visit. Location data is removed before upload.",
           "microphonePermission": false
         }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#8f1d1d"
+        }
       ]
     ],
     "experiments": {

@@ -3,6 +3,7 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { Image, ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
 import { Cosmati, EnamelButton, GiltFrame, Lacquer, Ombrellino, Paper, T, Valance, letterpress } from "../../src/components/ui";
 import VisitPanel from "../../src/components/VisitPanel";
+import PlanVisit from "../../src/components/reminders/PlanVisit";
 import { byId } from "../../src/data/basilicas";
 import { PHOTO_RATIO, PHOTOS } from "../../src/data/photos";
 import { openDirections, openWeb } from "../../src/lib/open";
@@ -64,6 +65,7 @@ export default function BasilicaScreen() {
           <EnamelButton label="Directions" onPress={() => openDirections(b)} icon={<Ionicons name="navigate" size={17} color="#fff" />} />
 
           <VisitPanel b={b} />
+          <PlanVisit b={b} />
         </View>
       </ScrollView>
     </Paper>

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Alert, Pressable, ScrollView, StyleSheet, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BasilicaRow from "../../src/components/BasilicaRow";
+import RemindersSection from "../../src/components/reminders/RemindersSection";
 import { Band, Card, Cosmati, EnamelButton, Kicker, Paper, PorcelainButton, T, Valance, letterpress } from "../../src/components/ui";
 import { BASILICAS, byId, STATE_COUNT } from "../../src/data/basilicas";
 import { useAuth } from "../../src/lib/auth";
@@ -76,6 +77,7 @@ export default function Mine() {
               </Card>
             </>
           )}
+          <RemindersSection />
         </ScrollView>
       </Paper>
     </SafeAreaView>
