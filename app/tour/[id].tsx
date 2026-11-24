@@ -3,6 +3,7 @@ import * as Haptics from "expo-haptics";
 import { Stack, router, useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState, type ComponentProps } from "react";
 import { Image, Platform, Pressable, ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
+import type { ScrollViewInstance } from "react-native";
 import { BigButton, KindIcon, Pips, SampleStamp, StopActions, StopFacts, StopMeta, Timeline, BadgeChip } from "../../src/components/TourParts";
 import { Card, Cosmati, EnamelButton, GiltFrame, Kicker, Lacquer, Lead, Paper, T, Valance, letterpress } from "../../src/components/ui";
 import VisitPanel from "../../src/components/VisitPanel";
@@ -23,7 +24,7 @@ export default function TourScreen() {
   const colW = Math.min(width, 640) - 28;
   const P = useTourProgress(String(id), t?.stops.length ?? 0);
   const [view, setView] = useState<"plan" | "go" | null>(null);
-  const scroll = useRef<ScrollView>(null);
+  const scroll = useRef<ScrollViewInstance>(null);
 
   // open where the visitor left off: in the middle of a tour, straight to the current stop
   useEffect(() => { if (P.ready && view === null) setView(P.progress && !P.progress.finished ? "go" : "plan"); }, [P.ready, P.progress, view]);

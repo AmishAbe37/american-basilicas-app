@@ -7,7 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "americanbasilicas",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "org.americanbasilicas.app",
@@ -58,7 +57,6 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "package": "org.americanbasilicas.app",
       "blockedPermissions": [
@@ -104,14 +102,18 @@
         {
           "color": "#8f1d1d"
         }
-      ]
+      ],
+      "expo-font",
+      "expo-image",
+      "expo-status-bar",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
     },
     "owner": "americanbasilicasorg",
     "description": "A pilgrim's map of the 94 Catholic minor basilicas of the United States.",
-    "runtimeVersion": "exposdk:54.0.0",
+    "runtimeVersion": "exposdk:58.0.0",
     "updates": {
       "url": "https://u.expo.dev/94f5432c-2f5c-47ca-9268-81e9c1ad65a4"
     },

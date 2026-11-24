@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Notifications from "expo-notifications";
+import { AndroidImportance, IosAuthorizationStatus } from "expo-notifications";
 import { router } from "expo-router";
 import { createContext, createElement, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { AppState, Linking, Platform } from "react-native";
@@ -59,7 +60,7 @@ async function channel() {
   if (Platform.OS === "android") {
     await Notifications.setNotificationChannelAsync(CHANNEL, {
       name: "Reminders", description: "Planned visits, photos waiting to upload and visit anniversaries",
-      importance: Notifications.AndroidImportance.DEFAULT,
+      importance: AndroidImportance.DEFAULT,
     });
   }
 }
@@ -113,7 +114,7 @@ export function RemindersProvider({ children }: { children: ReactNode }) {
   const readPermission = useCallback(async () => {
     if (!NATIVE) return "granted" as Permission;
     const p = await Notifications.getPermissionsAsync();
-    const s: Permission = p.granted || p.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL ? "granted" : p.canAskAgain ? "undetermined" : "denied";
+    const s: Permission = p.granted || p.ios?.status === IosAuthorizationStatus.PROVISIONAL ? "granted" : p.canAskAgain ? "undetermined" : "denied";
     setPermission(s);
     return s;
   }, []);
@@ -158,7 +159,7 @@ export function RemindersProvider({ children }: { children: ReactNode }) {
     if (now === "denied") return false;
     await channel();
     const r = await Notifications.requestPermissionsAsync({ ios: { allowAlert: true, allowBadge: false, allowSound: true } });
-    const granted = r.granted || r.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL;
+    const granted = r.granted || r.ios?.status === IosAuthorizationStatus.PROVISIONAL;
     setPermission(granted ? "granted" : r.canAskAgain ? "undetermined" : "denied");
     return !!granted;
   }, [readPermission]);

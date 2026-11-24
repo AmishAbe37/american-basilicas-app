@@ -14,11 +14,11 @@ export default function TabsLayout() {
         tabBarLabelStyle: { fontFamily: F.semibold, fontSize: 11, lineHeight: 15, letterSpacing: -0.1 },
       }}
     >
-      <Tabs.Screen name="index" options={{ title: "Map", tabBarIcon: ({ color, size }) => <Ionicons name="map-outline" color={color} size={size} /> }} />
-      <Tabs.Screen name="list" options={{ title: "Basilicas", tabBarIcon: ({ color, size }) => <Ionicons name="list-outline" color={color} size={size} /> }} />
-      <Tabs.Screen name="near" options={{ title: "Near you", tabBarIcon: ({ color, size }) => <Ionicons name="navigate-outline" color={color} size={size} /> }} />
-      <Tabs.Screen name="gallery" options={{ title: "Gallery", tabBarIcon: ({ color, size }) => <Ionicons name="images-outline" color={color} size={size} /> }} />
-      <Tabs.Screen name="mine" options={{ title: "My pilgrimage", tabBarIcon: ({ color, size }) => <Ionicons name="ribbon-outline" color={color} size={size} /> }} />
+      <Tabs.Screen name="index" options={{ title: "Map", tabBarIcon: ({ color, size }) => <Ionicons name="map-outline" color={color as string} size={size} /> }} />
+      <Tabs.Screen name="list" options={{ title: "Basilicas", tabBarIcon: ({ color, size }) => <Ionicons name="list-outline" color={color as string} size={size} /> }} />
+      <Tabs.Screen name="near" options={{ title: "Near you", tabBarIcon: ({ color, size }) => <Ionicons name="navigate-outline" color={color as string} size={size} /> }} />
+      <Tabs.Screen name="gallery" options={{ title: "Gallery", tabBarIcon: ({ color, size }) => <Ionicons name="images-outline" color={color as string} size={size} /> }} />
+      <Tabs.Screen name="mine" options={{ title: "My pilgrimage", tabBarIcon: ({ color, size }) => <Ionicons name="ribbon-outline" color={color as string} size={size} /> }} />
     </Tabs>
   );
 }
