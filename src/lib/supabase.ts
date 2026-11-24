@@ -15,6 +15,7 @@ export const sb = createClient(SUPABASE_URL, PUBLISHABLE_KEY, {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: false,
+    flowType: "pkce",            // Google/Apple in the browser come back with a one-time code, not tokens in the address
   },
 });
 

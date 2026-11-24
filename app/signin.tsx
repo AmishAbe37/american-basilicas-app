@@ -1,6 +1,7 @@
 import { router, Stack } from "expo-router";
 import { useState } from "react";
 import { ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TextInput, View } from "react-native";
+import SocialSignIn from "../src/components/SocialSignIn";
 import { Card, Cosmati, EnamelButton, Kicker, Medallion, Paper, PorcelainButton, T, letterpress } from "../src/components/ui";
 import { useAuth } from "../src/lib/auth";
 import { C, F } from "../src/theme";
@@ -39,6 +40,7 @@ export default function SignIn() {
             <T style={s.sub}>Check off the basilicas you visit, with the date, a private note and your photos. The same account works on americanbasilicas.org.</T>
           </View>
           <Cosmati />
+          <SocialSignIn onDone={() => router.back()} />
           <Card>
             {!sent ? (
               <View style={{ gap: 12, paddingBottom: 12 }}>
