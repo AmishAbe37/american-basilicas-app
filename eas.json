@@ -1,0 +1,54 @@
+// EAS Build and Submit settings. EAS CLI reads this file as JSON5, so comments are allowed.
+// Nothing here runs by itself: builds and store uploads happen only when someone runs `eas build` / `eas submit`.
+// Guide: docs/store/release-checklist.md
+{
+  "cli": {
+    "version": ">= 16.0.0",
+    // Expo's servers keep the build numbers (iOS buildNumber, Android versionCode), so app.json has none.
+    // The user-facing version ("1.0.0") still comes from "version" in app.json.
+    "appVersionSource": "remote"
+  },
+  "build": {
+    // A development build: only needed once a feature can't run in Expo Go.
+    // Needs `npx expo install expo-dev-client` first. Today, use Expo Go (the PR previews) instead.
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "channel": "development"
+    },
+    // For Android testers: an .apk you share by link, installed outside the Play Store.
+    // On iPhone, internal builds only install on devices registered with `eas device:create`; use TestFlight instead.
+    "preview": {
+      "distribution": "internal",
+      "channel": "preview",
+      "android": { "buildType": "apk" }
+    },
+    // What goes to the App Store and Google Play (.ipa and .aab). Each build gets the next build number.
+    "production": {
+      "distribution": "store",
+      "channel": "production",
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {
+      "android": {
+        // The Google service account key is NOT kept in this repo. Upload its JSON file once at
+        // expo.dev > Project > Credentials > Android > org.americanbasilicas.app > "Add a Google service account key".
+        // Builds go to the Internal testing track as a draft; you press "Start rollout" in Play Console.
+        "track": "internal",
+        "releaseStatus": "draft"
+      },
+      "ios": {
+        // Fill these two in after the Apple sign-up, then remove the "//" in front of each line.
+        // (Left as comments so the file stays valid: EAS rejects placeholder values.)
+        // App Store Connect > Apps > American Basilicas > App Information > General Information > "Apple ID" (a number).
+        // "ascAppId": "1234567890",
+        // developer.apple.com/account > Membership details > "Team ID" (10 letters and digits).
+        // "appleTeamId": "AB12CD34EF",
+        // Sign-in for uploads: run `eas credentials -p ios` once and let EAS create an App Store Connect API key.
+        // It is stored with Expo, not in this repo. Never paste the .p8 key into chat or commit it.
+      }
+    }
+  }
+}
