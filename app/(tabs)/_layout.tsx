@@ -11,7 +11,7 @@ export default function TabsLayout() {
         tabBarActiveTintColor: C.red,
         tabBarInactiveTintColor: C.muted,
         tabBarStyle: { backgroundColor: C.paper2, borderTopColor: C.rule, ...(Platform.OS === "web" ? { height: 58, paddingBottom: 6 } : null) },
-        tabBarLabelStyle: { fontFamily: F.semibold, fontSize: 12, lineHeight: 16 },
+        tabBarLabelStyle: { fontFamily: F.semibold, fontSize: 11, lineHeight: 15, letterSpacing: -0.1 },
       }}
     >
       <Tabs.Screen name="index" options={{ title: "Map", tabBarIcon: ({ color, size }) => <Ionicons name="map-outline" color={color} size={size} /> }} />
