@@ -19,6 +19,12 @@ python3 tools/render-basemap.py ../american-basilicas  # the site's map art -> a
 
 Re-run them after changing facts, photos or the map on the website.
 
+Day tours come from the tours Project as a CSV or JSON file (format: `docs/tours-format.md`):
+
+```sh
+node tools/build-tours.mjs tours.csv   # checks every tour, then writes assets/data/tours.json
+```
+
 ## Previews
 
 Each pull request is published by `.github/workflows/preview.yml` as an update that opens in Expo Go

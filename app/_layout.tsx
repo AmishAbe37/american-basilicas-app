@@ -5,7 +5,9 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Lacquer } from "../src/components/ui";
+import WelcomeNotice from "../src/components/WelcomeNotice";
 import { AuthProvider } from "../src/lib/auth";
+import { RemindersProvider } from "../src/lib/reminders";
 import { VisitsProvider } from "../src/lib/visits";
 import { C, F } from "../src/theme";
 
@@ -17,7 +19,7 @@ export default function Root() {
   if (!loaded) return null;
   return (
     <GestureHandlerRootView style={{ flex: 1, backgroundColor: C.paper }}>
-      <AuthProvider><VisitsProvider>
+      <AuthProvider><VisitsProvider><RemindersProvider>
       <StatusBar style="light" />
       <Stack
         screenOptions={{
@@ -32,8 +34,12 @@ export default function Root() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="basilica/[id]" options={{ title: "", headerBackTitle: "Back" }} />
         <Stack.Screen name="signin" options={{ title: "Sign in", presentation: "modal" }} />
+        <Stack.Screen name="account/orders" options={{ title: "Orders", headerBackTitle: "Back" }} />
+        <Stack.Screen name="account/membership" options={{ title: "Gallery membership", headerBackTitle: "Back" }} />
+        <Stack.Screen name="account/delete" options={{ title: "Delete my account", headerBackTitle: "Back" }} />
       </Stack>
-      </VisitsProvider></AuthProvider>
+      <WelcomeNotice />
+      </RemindersProvider></VisitsProvider></AuthProvider>
     </GestureHandlerRootView>
   );
 }

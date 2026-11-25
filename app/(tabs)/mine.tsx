@@ -2,7 +2,9 @@ import { router } from "expo-router";
 import { useState } from "react";
 import { Alert, Pressable, ScrollView, StyleSheet, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { AccountFooter, AccountLinks, DeleteLink } from "../../src/components/AccountSection";
 import BasilicaRow from "../../src/components/BasilicaRow";
+import RemindersSection from "../../src/components/reminders/RemindersSection";
 import { Band, Card, Cosmati, EnamelButton, Kicker, Paper, PorcelainButton, T, Valance, letterpress } from "../../src/components/ui";
 import { BASILICAS, byId, STATE_COUNT } from "../../src/data/basilicas";
 import { useAuth } from "../../src/lib/auth";
@@ -51,6 +53,8 @@ export default function Mine() {
                   : <T style={[s.text, { marginBottom: 14 }]}>None yet. Open a basilica and tap “I’ve visited”.</T>}
               </Card>
 
+              <AccountLinks />
+
               <Cosmati />
 
               <Card>
@@ -73,9 +77,12 @@ export default function Mine() {
                   <PorcelainButton label="Sign out" onPress={() => Alert.alert("Sign out?", V.pending ? "Some changes haven’t been sent yet. They’ll wait on this phone until you sign in again." : "", [
                     { text: "Cancel", style: "cancel" }, { text: "Sign out", style: "destructive", onPress: () => signOut() }])} />
                 </View>
+                <DeleteLink />
               </Card>
             </>
           )}
+          <RemindersSection />
+          <AccountFooter />
         </ScrollView>
       </Paper>
     </SafeAreaView>

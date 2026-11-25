@@ -3,6 +3,9 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { Image, ScrollView, StyleSheet, useWindowDimensions, View } from "react-native";
 import { Cosmati, EnamelButton, GiltFrame, Lacquer, Ombrellino, Paper, T, Valance, letterpress } from "../../src/components/ui";
 import VisitPanel from "../../src/components/VisitPanel";
+import { BasilicaMembers } from "../../src/components/gallery/GalleryBasilica";
+import PlanVisit from "../../src/components/reminders/PlanVisit";
+import DayTours from "../../src/components/DayTours";
 import { byId } from "../../src/data/basilicas";
 import { PHOTO_RATIO, PHOTOS } from "../../src/data/photos";
 import { openDirections, openWeb } from "../../src/lib/open";
@@ -22,7 +25,7 @@ export default function BasilicaScreen() {
     <Paper>
       <Stack.Screen options={{ title: b.city, headerBackground: () => <Lacquer style={{ flex: 1 }} /> }} />
       <Valance style={{ marginBottom: -10 }} />
-      <ScrollView contentContainerStyle={{ paddingHorizontal: 14, paddingTop: 26, paddingBottom: 40, alignItems: "center" }}>
+      <ScrollView contentContainerStyle={{ paddingHorizontal: 14, paddingTop: 26, paddingBottom: 40, alignItems: "center" }} keyboardShouldPersistTaps="handled">
         <View style={{ width: colW }}>
           {photo ? (
             <GiltFrame>
@@ -63,7 +66,11 @@ export default function BasilicaScreen() {
 
           <EnamelButton label="Directions" onPress={() => openDirections(b)} icon={<Ionicons name="navigate" size={17} color="#fff" />} />
 
+          <DayTours b={b} />
+
           <VisitPanel b={b} />
+          <BasilicaMembers b={b} />
+          <PlanVisit b={b} />
         </View>
       </ScrollView>
     </Paper>

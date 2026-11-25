@@ -9,10 +9,46 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "org.americanbasilicas.app",
+      "usesAppleSignIn": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Your location is used on this phone to list the basilicas nearest you. It isn't sent or saved."
+      },
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "privacyManifests": {
+        "NSPrivacyTracking": false,
+        "NSPrivacyAccessedAPITypes": [
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "CA92.1"
+            ]
+          },
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryFileTimestamp",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "C617.1",
+              "0A2A.1",
+              "3B52.1"
+            ]
+          },
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategorySystemBootTime",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "35F9.1"
+            ]
+          },
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryDiskSpace",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "E174.1",
+              "85F4.1"
+            ]
+          }
+        ]
       }
     },
     "android": {
@@ -24,7 +60,10 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "org.americanbasilicas.app"
+      "package": "org.americanbasilicas.app",
+      "blockedPermissions": [
+        "android.permission.SYSTEM_ALERT_WINDOW"
+      ]
     },
     "web": {
       "output": "single",
@@ -45,16 +84,25 @@
       [
         "expo-location",
         {
-          "locationWhenInUsePermission": "Your location is used on this phone to list the basilicas nearest you. It isn't sent or saved."
+          "locationWhenInUsePermission": "Your location is used on this phone to list the basilicas nearest you. It isn't sent or saved.",
+          "locationAlwaysAndWhenInUsePermission": "American Basilicas uses your location only while the app is open, to list the basilicas nearest you. It isn’t sent or saved.",
+          "locationAlwaysPermission": "American Basilicas uses your location only while the app is open, to list the basilicas nearest you. It isn’t sent or saved."
         }
       ],
       "@react-native-community/datetimepicker",
+      "expo-apple-authentication",
       [
         "expo-image-picker",
         {
-          "photosPermission": "Choose photos of a basilica to add to your visit. Location data is removed before upload.",
-          "cameraPermission": "Take photos at a basilica for your visit. Location data is removed before upload.",
+          "photosPermission": "Choose photos of a basilica to add to your visit. Your visit photos are reviewed for the members’ gallery. Location data is removed before upload.",
+          "cameraPermission": "Take photos at a basilica for your visit. Your visit photos are reviewed for the members’ gallery. Location data is removed before upload.",
           "microphonePermission": false
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#8f1d1d"
         }
       ]
     ],

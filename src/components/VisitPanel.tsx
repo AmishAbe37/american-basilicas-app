@@ -11,7 +11,7 @@ import { Card, EnamelButton, GiltFrame, Kicker, PorcelainButton, T, letterpress 
 
 const fmt = (d: string | null) => (d ? new Date(d + "T12:00:00").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : "");
 const STATUS: Record<string, [string, string]> = {
-  waiting: ["On this phone", "#6a5f4c"], pending: ["Awaiting approval", "#8a6514"], approved: ["In the gallery", "#2f6b3a"], hidden: ["Not shown", "#8f1d1d"],
+  waiting: ["On this phone", "#6a5f4c"], pending: ["Awaiting approval", "#8a6514"], approved: ["In the gallery", "#2f6b3a"], hidden: ["Not shown", "#8f1d1d"], rejected: ["Only in your visit", "#8f1d1d"],
 };
 
 /** "Your visit": check off, date, private note, photos. Saved on the phone first; sent when there's signal. */
