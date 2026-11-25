@@ -88,7 +88,7 @@ export default function GalleryHome() {
         contentContainerStyle={{ padding: 14, paddingTop: 24, paddingBottom: 30 }}
         keyboardShouldPersistTaps="handled"
         ListHeaderComponent={header}
-        ListEmptyComponent={counts ? <T style={{ padding: 8, color: C.muted }}>No basilica matches “{q}”.</T> : null}
+        ListEmptyComponent={counts ? <T style={{ padding: 8, color: C.muted }}>No basilica matches “{q}”.</T> : undefined}
         renderItem={({ item }) => (
           <Card style={{ marginBottom: 14 }}>
             <View style={s.h3}><T w="black" style={s.stname}>{item.state}</T><Enamel>{item.data.length}</Enamel></View>

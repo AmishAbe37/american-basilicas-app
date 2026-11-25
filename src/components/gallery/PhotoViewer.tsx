@@ -1,7 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Image } from "expo-image";
 import { useEffect, useRef, useState } from "react";
-import { FlatList, Modal, Pressable, StyleSheet, useWindowDimensions, View, type ViewToken } from "react-native";
+import { FlatList, Modal, Pressable, StyleSheet, useWindowDimensions, View, type ListViewToken } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { who, type GPhoto, type Source } from "../../lib/gallery";
 import { C } from "../../theme";
@@ -29,7 +29,7 @@ export default function PhotoViewer({ items, start, name, thumbs, src, liked, on
     src.urls([p.storage_path]).then((u) => setFull((f) => ({ ...f, ...u })), () => {});
   }, [p, full, src]);
 
-  const onViewable = useRef(({ viewableItems }: { viewableItems: ViewToken[] }) => {
+  const onViewable = useRef(({ viewableItems }: { viewableItems: ListViewToken[] }) => {
     const v = viewableItems[0]; if (v?.index != null) setI(v.index);
   }).current;
   const go = (d: number) => {

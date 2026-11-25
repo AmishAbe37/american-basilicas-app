@@ -1,6 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { memo, useImperativeHandle, useRef, type Ref } from "react";
 import { Pressable, ScrollView, StyleSheet, View, type LayoutChangeEvent } from "react-native";
+import type { ScrollViewInstance } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { BY_STATE, type Basilica } from "../data/basilicas";
 import type { Picked } from "../lib/usePicked";
@@ -21,7 +22,7 @@ type Props = {
 
 /** The state-by-state index under the map: one card per state; the open card lists its basilicas. */
 export default function MapStateList({ picked, onState, onOpen, visited, ref }: Props) {
-  const sv = useRef<ScrollView>(null);
+  const sv = useRef<ScrollViewInstance>(null);
   const viewH = useRef(0);
   const cardY = useRef(new Map<string, number>());
   const bodyY = useRef(new Map<string, number>());
